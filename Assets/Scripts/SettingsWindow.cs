@@ -6,10 +6,12 @@ public class SettingsWindow : MonoBehaviour
 
     public void openSettingWindow()
     {
+        Time.timeScale = 0;
         Settings.SetActive(true);
     }
     public void closeSettingWindow()
     {
+        Time.timeScale = 1;
         Settings.SetActive(false);
     }
 }
