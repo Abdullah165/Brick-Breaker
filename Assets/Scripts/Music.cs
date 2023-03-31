@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Music : MonoBehaviour
 {
-    public static Music Instance;
+   private static Music Instance { get; set; }
+
+    private const string MUTE = "Muted";
+
 
     private void Awake()
     {
@@ -17,15 +20,37 @@ public class Music : MonoBehaviour
         }
     }
 
-   public void ToggleSound()
+    private void Start()
     {
-        if(PlayerPrefs.GetInt("Muted",0) == 0)
+        if (PlayerPrefs.GetInt(MUTE) == 0)
         {
-            PlayerPrefs.SetInt("Muted", 1);
+            AudioListener.volume = 1;
         }
         else
         {
-            PlayerPrefs.SetInt("Muted", 0);
+            AudioListener.volume = 0;
         }
+    }
+
+    public void ToggleSound()
+    {
+        if(PlayerPrefs.GetInt(MUTE) == 0)
+        {
+            PlayerPrefs.SetInt(MUTE, 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(MUTE, 0);
+        }
+    }
+
+    public string GetMute()
+    {
+        return MUTE;
+    }
+
+    public static Music Get()
+    {
+        return Instance;
     }
 }
