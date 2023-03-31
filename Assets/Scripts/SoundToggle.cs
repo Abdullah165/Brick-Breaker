@@ -7,23 +7,20 @@ public class SoundToggle : MonoBehaviour
     [SerializeField] Sprite soundOn;
     [SerializeField] Sprite soundOff;
 
-    Music music;
-
-    private void Awake()
+    private void Start()
     {
-        music = GameObject.FindObjectOfType<Music>();
         UpdateSoundIcon();
     }
 
     public void PauseMusic()
     {
-        music.ToggleSound();
+        Music.Get().ToggleSound();
         UpdateSoundIcon();
     }
 
     void UpdateSoundIcon()
     {
-        if (PlayerPrefs.GetInt("Muted") == 0)
+        if (PlayerPrefs.GetInt(Music.Get().GetMute()) == 0)
         {
             soundToggle.GetComponent<Image>().sprite = soundOn;
             AudioListener.volume = 1;
